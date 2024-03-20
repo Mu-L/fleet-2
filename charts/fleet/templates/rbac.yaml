@@ -4,12 +4,6 @@ metadata:
   name: fleet-controller
 rules:
 - apiGroups:
-  - gitjob.cattle.io
-  resources:
-  - '*'
-  verbs:
-  - '*'
-- apiGroups:
   - fleet.cattle.io
   resources:
   - '*'
@@ -85,6 +79,7 @@ subjects:
 - kind: ServiceAccount
   name: fleet-controller
 
+{{- if .Values.bootstrap.enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -110,3 +105,4 @@ subjects:
 - kind: ServiceAccount
   name: fleet-controller-bootstrap
   namespace: {{.Release.Namespace}}
+{{- end }}
